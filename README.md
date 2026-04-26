@@ -1,5 +1,9 @@
 # 🧩 Design Options App
 
+## 🌐 Live Demo
+
+👉 [https://design-options-comparison-tool.vercel.app](https://design-options-comparison-tool-h4evwh0bu.vercel.app/)
+
 ## 📌 Summary
 
 Design Options App is a frontend-focused application that allows users to create, import, and compare architectural design alternatives based on key performance metrics.
