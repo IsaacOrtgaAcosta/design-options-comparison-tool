@@ -17,8 +17,7 @@ import { useRef } from "react";
 import { fetchImportedOptions } from "../services/fetch-imported-options";
 import { EmptyDesignOptionsState } from "./states/EmptyDesignOptionsState";
 import { mapDesignOptionToDb } from "../utils/map-design-option-to-db";
-import { AlertDialog } from "@/components/ui/alert-dialog";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ErrorState } from "./states/ErrorState";
 
 export const DesignOptionsDashboard = () => {
   const [options, setOptions] = useState<DesignOption[]>([]);
@@ -131,14 +130,7 @@ export const DesignOptionsDashboard = () => {
 
   // We display the errors in an alert.
   if (error) {
-    return (
-      <div className="p-4">
-        <Alert variant="destructive">
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
-      </div>
-    );
+    return <ErrorState error={error} />;
   }
 
   return (

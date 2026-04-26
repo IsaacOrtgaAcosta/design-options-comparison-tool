@@ -17,7 +17,7 @@ export async function fetchImportedOptions(
   }
   try {
     const response = await fetch(
-      `${IMPORT_OPTIONS_ENDPOINT}?limit=${pageSize}&skip=${from + 1}`,
+      IMPORT_OPTIONS_ENDPOINT,
       {
         cache: "no-store",
       },

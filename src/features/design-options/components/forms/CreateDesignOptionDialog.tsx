@@ -93,8 +93,8 @@ export const CreateDesignOptionDialog = ({
         return;
       }
 
-      if (daylight < 0 || daylight > 10 || fit < 0 || fit > 10) {
-        setError("Daylight and program fit must be between 0 and 10.");
+      if (daylight < 1 || daylight > 10 || fit < 1 || fit > 10) {
+        setError("Daylight and program fit must be between 1 and 10.");
         return;
       }
 
