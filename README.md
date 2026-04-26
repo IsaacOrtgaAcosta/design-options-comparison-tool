@@ -244,7 +244,7 @@ Users can review key metrics without opening every option individually.
 
 ### 2. Option Detail
 
-Each option can be opened in a modal to review more detailed information such as description, notes, pros, cons, tags, source, and reference URLs.
+Each option can be opened in a modal to review more detailed information such as description, pros, cons, tags, source, and reference URLs.
 
 A modal was chosen to keep the user in the same context instead of navigating away from the list.
 
