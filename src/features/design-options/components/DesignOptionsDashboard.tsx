@@ -18,6 +18,7 @@ import { fetchImportedOptions } from "../services/fetch-imported-options";
 import { EmptyDesignOptionsState } from "./states/EmptyDesignOptionsState";
 import { mapDesignOptionToDb } from "../utils/map-design-option-to-db";
 import { ErrorState } from "./states/ErrorState";
+import { useCompareSelection } from "@/hooks/use-compare-selection";
 
 export const DesignOptionsDashboard = () => {
   const [options, setOptions] = useState<DesignOption[]>([]);
@@ -25,14 +26,17 @@ export const DesignOptionsDashboard = () => {
     null,
   );
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>([]);
-  const [comparisonOptions, setComparisonOptions] = useState<DesignOption[]>(
-    [],
-  );
   const [importPage, setImportPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  const {
+    selectedOptionIds,
+    selectedCount,
+    comparisonOptions,
+    toggleSelection,
+    compare,
+    clearSelection,
+  } = useCompareSelection({ options });
   useEffect(() => {
     const fetchDesignOptions = async () => {
       try {
@@ -64,24 +68,12 @@ export const DesignOptionsDashboard = () => {
   const comparisonRef = useRef<HTMLDivElement | null>(null);
 
   const handleToggleCompareSelection = (optionId: string, checked: boolean) => {
-    setSelectedOptionIds((prev) => {
-      if (checked) {
-        if (prev.length >= 4) return prev;
-        return [...prev, optionId];
-      }
-
-      return prev.filter((id) => id !== optionId);
-    });
+    toggleSelection(optionId, checked);
   };
+
   const handleCompare = () => {
-    if (selectedOptionIds.length < 2) return;
-
-    const selectedOptions = options.filter((option) =>
-      selectedOptionIds.includes(option.id),
-    );
-
-    setComparisonOptions(selectedOptions);
-
+    if (selectedCount < 2) return;
+    compare();
     // Automatic scroll to the comparison panel
     setTimeout(() => {
       comparisonRef.current?.scrollIntoView({
@@ -116,8 +108,7 @@ export const DesignOptionsDashboard = () => {
 
   // REMOVE SELECTED TO COMPARISON:
   const handleRemoveSelection = () => {
-    setSelectedOptionIds([]);
-    setComparisonOptions([]);
+    clearSelection();
   };
 
   if (isLoading) {
